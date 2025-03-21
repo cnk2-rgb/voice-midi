@@ -12,8 +12,9 @@ async function loadMidiFile() {
                 console.log("Checkbox is checked..");
                 const now = Tone.now() + 0.5;
                 midi.tracks.forEach((track) => {
-                    console.log("creating sampler for each track");
-                    //create a synth for each track
+                    // console.log(track);
+                    // console.log("creating sampler for each track");
+                    // create a synth for each track
                     const voice_sampler = new Tone.Sampler({ 
                         baseUrl: 'sampler/',
                         urls: {
@@ -24,7 +25,7 @@ async function loadMidiFile() {
                       
                     voice_sampler.toDestination()
 
-                    // const synth = new Tone.PolySynth(Tone.Synth, {
+                    // const voice_sampler = new Tone.PolySynth(Tone.Synth, {
                     //     envelope: {
                     //         attack: 0.02,
                     //         decay: 0.1,
@@ -35,7 +36,6 @@ async function loadMidiFile() {
                     synths.push(voice_sampler);
                     //schedule all of the events
                     track.notes.forEach((note) => {
-                        console.log(note);
                         voice_sampler.triggerAttackRelease(
                             note.name,
                             note.duration,
