@@ -15,6 +15,7 @@ async function loadMidiFile() {
                     // console.log(track);
                     // console.log("creating sampler for each track");
                     // create a synth for each track
+
                     const voice_sampler = new Tone.Sampler({ 
                         baseUrl: 'sampler/',
                         urls: {
@@ -24,6 +25,7 @@ async function loadMidiFile() {
                       })
                       
                     voice_sampler.toDestination()
+                    
 
                     // const voice_sampler = new Tone.PolySynth(Tone.Synth, {
                     //     envelope: {
@@ -33,7 +35,7 @@ async function loadMidiFile() {
                     //         release: 1,
                     //     },
                     // }).toDestination();
-                    synths.push(voice_sampler);
+                    // synths.push(voice_sampler);
                     //schedule all of the events
                     track.notes.forEach((note) => {
                         voice_sampler.triggerAttackRelease(
@@ -46,10 +48,11 @@ async function loadMidiFile() {
                 });
             } else {
                 console.log("Checkbox is not checked..");
-                while (synths.length) {
-                    const synth = synths.shift();
-                    synth.disconnect();
-                }
+                // while (synths.length) {
+                //     const synth = synths.shift();
+                //     synth.disconnect();
+                // }
+                voice_sampler.disconnect();
             }
         });
     } catch (error) {
