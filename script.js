@@ -13,18 +13,29 @@ async function loadMidiFile() {
                 const now = Tone.now() + 0.5;
                 midi.tracks.forEach((track) => {
                     //create a synth for each track
-                    const synth = new Tone.PolySynth(Tone.Synth, {
-                        envelope: {
-                            attack: 0.02,
-                            decay: 0.1,
-                            sustain: 0.3,
-                            release: 1,
+                    const voice_sampler = new Tone.Sampler({ 
+                        baseUrl: 'sampler/',
+                        urls: {
+                          'A3': 'A3.mp3'
                         },
-                    }).toDestination();
-                    synths.push(synth);
+                        release: 1
+                      })
+                      
+                    voice_sampler.toDestination()
+
+                    // const synth = new Tone.PolySynth(Tone.Synth, {
+                    //     envelope: {
+                    //         attack: 0.02,
+                    //         decay: 0.1,
+                    //         sustain: 0.3,
+                    //         release: 1,
+                    //     },
+                    // }).toDestination();
+                    synths.push(voice_sampler);
                     //schedule all of the events
                     track.notes.forEach((note) => {
-                        synth.triggerAttackRelease(
+                        console.log(note);
+                        voice_sampler.triggerAttackRelease(
                             note.name,
                             note.duration,
                             note.time + now,
