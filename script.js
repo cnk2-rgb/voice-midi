@@ -12,6 +12,7 @@ async function loadMidiFile() {
                 console.log("Checkbox is checked..");
                 const now = Tone.now() + 0.5;
                 midi.tracks.forEach((track) => {
+                    console.log("creating sampler for each track");
                     //create a synth for each track
                     const voice_sampler = new Tone.Sampler({ 
                         baseUrl: 'sampler/',
